@@ -1,3 +1,5 @@
+#include <bits/stdc++.h>
+using namespace std;
 //https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
 //Knapsack problem 0/1
  int knapSack(int W, int wt[], int val[], int n) 
@@ -227,3 +229,28 @@ int LongestRepeatingSubsequence(string str){
 		    return dp[n][n];
 		    
 		}
+
+//https://practice.geeksforgeeks.org/problems/gold-mine-problem2608/1#
+//Goldmine
+ int maxGold(int n, int m, vector<vector<int>> M)
+    {
+        
+        int dp[n+1][m+1];
+        memset(dp, 0, sizeof(dp));
+        for(int j = m-1; j>=0; j--){
+            for(int i = 0; i<n; i++){
+                if(j == m-1)
+                    dp[i][j] = M[i][j];
+                else if(i == 0)
+                    dp[i][j] = M[i][j] + max(dp[i][j+1], dp[i+1][j+1]);
+                else if(i == n-1)
+                    dp[i][j] = M[i][j] + max(dp[i-1][j+1], dp[i][j+1]);
+                else
+                    dp[i][j] = M[i][j] + max(dp[i-1][j+1], max(dp[i][j+1], dp[i+1][j+1]));
+            }
+        }
+        int res = INT_MIN;
+        for(int i = 0; i<n; i++)
+            res = max(res, dp[i][0]);
+        return res;
+    }
