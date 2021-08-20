@@ -271,3 +271,86 @@ int countFriendsPairings(int n)
         }
         return dp[n];
     }
+//https://practice.geeksforgeeks.org/problems/longest-increasing-subsequence-1587115620/1#
+//Longest Increasing subsequence 
+//TLE O(N^2) // BETTER CODE ALSO EXISTS O(NLOGN)
+int longestSubsequence(int n, int arr[])
+    {
+       // your code here
+       int dp[n];
+       int omax=0;
+       for(int i=0;i<n;i++){
+           int max=0;
+           for(int j=0;j<i;j++){
+               if(arr[j]<arr[i]){
+                   if(dp[j]>max)
+                    max=dp[j];
+               }
+           }
+           dp[i]=max+1;
+           if(dp[i]>omax)
+            omax=dp[i];
+       }
+       return omax;
+    }
+
+//https://practice.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence4749/1#
+//Maximum Sum increasing subsequence
+int maxSumIS(int arr[], int n)  
+	{  
+	    // Your code goes here
+	    int dp[n];
+	    int omax=INT_MIN;
+	    for(int i=0;i<n;i++){
+	        int max=0;
+	        for(int j=0;j<i;j++){
+	            if(arr[j]<arr[i]){
+	                if(max==0)
+	                  max=dp[j];
+	                else if(dp[j]>max)
+	                  max=dp[j];
+	            }
+	        }
+	        if(max==0)
+	          dp[i]=arr[i];
+	        else
+	          dp[i]=max+arr[i];
+	        if(dp[i]>omax)
+	          omax=dp[i];
+	    }
+	    return omax;
+	}  
+//https://practice.geeksforgeeks.org/problems/nth-catalan-number0817/1#
+//CATLAN NUMBER
+cpp_int findCatalan(int n) 
+    {
+        //code here
+        cpp_int dp[n+1];
+        dp[0]=1;
+        dp[1]=1;
+        for(int i=2;i<=n;i++){
+            dp[i]=0;
+          for(int j=0;j<i;j++){
+              dp[i]+=dp[j]*dp[i-j-1];
+          }
+        }
+        return dp[n];
+    }
+
+//COMBINATION OF BALANCED PARANTHESIS //gives only count of possible paranthesis
+int comparen(int n)
+{
+    int dp[n+1];
+    dp[0]=1;dp[1]=1;
+    for(int i=2;i<n;i++){
+       int inside=i-1;
+       int outside=0;
+       dp[i]=0;
+       while(inside>=0){
+           dp[i]+=dp[inside]*dp[outside];
+           inside--;
+           outside++;
+       }
+    }
+    return dp[n];
+}
