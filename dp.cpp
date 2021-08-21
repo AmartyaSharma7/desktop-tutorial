@@ -338,6 +338,7 @@ cpp_int findCatalan(int n)
     }
 
 //COMBINATION OF BALANCED PARANTHESIS //gives only count of possible paranthesis
+//Application of catlan number
 int comparen(int n)
 {
     int dp[n+1];
@@ -354,3 +355,53 @@ int comparen(int n)
     }
     return dp[n];
 }
+
+//https://practice.geeksforgeeks.org/problems/painting-the-fence3727/1#
+//Paint fence
+  long long countWays(int n, int k){
+        // code here
+        long long int same = k * 1;
+        long long int diff = k * (k-1);
+        long long total = same + diff;
+        if(n>2){
+        for(int i=3;i<=n;i++){
+            same=(diff *1)%1000000007;
+            diff=(total * (k-1))%1000000007;
+            total=(same+diff)%1000000007;
+        }
+        }
+        if(n==1)return k;
+        else return total;
+    }
+
+//Count Palindromic Subsequences
+//https://leetcode.com/problems/palindromic-substrings/submissions/
+//leetcode
+  int countSubstrings(string s) {
+        int n=s.length();
+        bool dp[n][n];
+        int cnt=0;
+ // only way is diagonal by diagonal filling as  we will access previous diagonal elements
+       for(int gap=0;gap<n;gap++){
+            // all diagonals start from 0th row and ends at (n-1)th col
+            for(int i=0,j=gap;j<n;i++,j++){
+                if(gap==0)  // diagonal woth gap 0 (all single character substrings are palindromes)
+                    dp[i][j]=true;
+                else if(gap==1){ // diagonal with gap 2
+                    if(s[i]==s[j])
+                        dp[i][j]=true;
+                    else dp[i][j]=false;
+                }
+                // all other diagonals
+                else{
+                    if(s[i]==s[j] && dp[i+1][j-1]==true){
+                       dp[i][j]=true;
+                    }
+                    else dp[i][j]=false;
+                }
+                // count all palindromes
+                if(dp[i][j]) cnt++;
+            }
+        }
+            return cnt;
+       }
