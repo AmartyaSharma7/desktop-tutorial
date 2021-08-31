@@ -463,3 +463,33 @@ int comparen(int n)
     }
     return (min_cost[n][W]==INF)? -1: min_cost[n][W];
 	}
+//https://practice.geeksforgeeks.org/problems/path-in-matrix3805/1#
+//maximumpath
+    int maximumPath(int N, vector<vector<int>> Matrix)
+    {
+        // code here
+        int dp[N][N];
+        for(int i=N-1;i>=0;i--){
+            for(int j=N-1;j>=0;j--){
+                if(i==N-1)
+                 dp[i][j]=Matrix[i][j];
+                 else{
+                if(j==N-1){
+                    dp[i][j]=max(dp[i+1][j],dp[i+1][j-1])+Matrix[i][j];
+                }
+                else if(j==0){
+                    dp[i][j]=max(dp[i+1][j],dp[i+1][j+1])+Matrix[i][j];
+                }
+                else{
+                    dp[i][j]=max({dp[i+1][j],dp[i+1][j+1],dp[i+1][j-1]}) + Matrix[i][j];
+                }
+                 }
+            }
+        }
+      int x=INT_MIN;
+      for(int i=0,j=0;j<N;j++){
+          x=max(x,dp[i][j]);
+      }
+      return x;
+      
+    }
