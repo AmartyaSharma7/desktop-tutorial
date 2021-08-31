@@ -322,10 +322,10 @@ int maxSumIS(int arr[], int n)
 	}  
 //https://practice.geeksforgeeks.org/problems/nth-catalan-number0817/1#
 //CATLAN NUMBER
-cpp_int findCatalan(int n) 
-    {
+int findCatalan(int n) 
+    { //cpp_int given in que so instead use cpp_int dp[n+1];
         //code here
-        cpp_int dp[n+1];
+        int dp[n+1];
         dp[0]=1;
         dp[1]=1;
         for(int i=2;i<=n;i++){
